@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Details</title>
+    <style>
+        .expandable-content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Character Details</h1>
+
+    <form id="update-character-form" action="/projects/{{ project_id }}/characters/{{ character._id }}" method="POST">
+        <label for="character-name">Name:</label>
+        <input type="text" id="character-name" name="name" value="{{ character.name }}"><br>
+        <label for="character-age">Age:</label>
+        <input type="text" id="character-age" name="age" value="{{ character.age }}"><br>
+        <label for="character-description">Description:</label>
+        <textarea id="character-description" name="description">{{ character.description }}</textarea><br>
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <!-- Delete Character Button -->
+    <form id="delete-character-form" action="/projects/{{ project_id }}/characters/{{ character._id }}/delete" method="post">
+        <button type="submit">Delete Character</button>
+    </form>
+
+    <a href="/projects/{{ project_id }}">Back to Project Details</a>
+    
+    <script>
+        document.getElementById('update-character-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            // Fetch the form data
+            const formData = new FormData(this);
+            
+            // Fetch options
+            const options = {
+                method: 'POST',
+                body: formData
+            };
+            
+            // Fetch request
+            fetch(this.action, options)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to update character');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Character updated successfully:', data);
+                    window.location.href = `/projects/${data.project_id}`; // Redirect to project details
+                })
+                .catch(error => console.error('Error updating character:', error));
+        });
+    </script>    
+</body>
+</html>
