@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Details</title>
+    <style>
+        .expandable-content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Location Details</h1>
+
+    <form id="update-location-form" action="/projects/{{ project_id }}/locations/{{ location._id }}" method="POST">
+        <label for="location-name">Name:</label>
+        <input type="text" id="location-name" name="name" value="{{ location.name }}"><br>
+        <label for="location-description">Description:</label>
+        <textarea id="location-description" name="description">{{ location.description }}</textarea><br>
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <!-- Delete Location Button -->
+    <form id="delete-location-form" action="/projects/{{ project_id }}/locations/{{ location._id }}/delete" method="post">
+        <button type="submit">Delete Location</button>
+    </form>
+
+    <a href="/projects/{{ project_id }}">Back to Project Details</a>
+    
+    <script>
+        document.getElementById('update-location-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            // Fetch the form data
+            const formData = new FormData(this);
+            
+            // Fetch options
+            const options = {
+                method: 'POST',
+                body: formData
+            };
+            
+            // Fetch request
+            fetch(this.action, options)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to update location');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Location updated successfully:', data);
+                    window.location.href = `/projects/${data.project_id}`; // Redirect to project details
+                })
+                .catch(error => console.error('Error updating location:', error));
+        });
+    </script>    
+</body>
+</html>
