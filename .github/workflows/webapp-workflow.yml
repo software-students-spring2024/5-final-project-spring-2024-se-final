@@ -22,18 +22,11 @@ jobs:
           
       # Navigate to web-app folder
       - name: Navigate to web-app folder
-        run: cd ..
-
-      - name: Navigate to web-app folder
-        run: cd web-app
+        run: cd ../web-app
         
       # Install dependencies
       - name: Install dependencies
         run: pip install -r requirements.txt
-        
-      # Navigate back to root folder
-      - name: Navigate back to root folder
-        run: cd ..
           
       # Run tests
       - name: Run tests
