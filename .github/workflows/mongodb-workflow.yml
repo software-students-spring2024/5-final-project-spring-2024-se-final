@@ -14,11 +14,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      # Navigate to MongoDB folder
-      - name: Navigate to MongoDB folder
+      # Navigate to web-app folder
+      - name: Navigate to web-app folder
         run: |
-          cd ../mongodb
+          cd $GITHUB_WORKSPACE  # Navigate to the root directory of the repository
+          cd mongodb  # Navigate to the mongodb folder
           pwd  # Print current working directory
+
 
       # Build MongoDB Docker container
       - name: Build MongoDB
