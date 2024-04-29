@@ -1,0 +1,33 @@
+name: MongoDB CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      # Build MongoDB Docker container
+      - name: Build MongoDB
+        run: docker-compose -f mongodb/docker-compose.yml build
+      
+      # Deploy MongoDB to Digital Ocean
+      - name: Deploy MongoDB to Digital Ocean
+        run: |
+          # Install doctl
+          curl -sL https://github.com/digitalocean/doctl/releases/download/v1.60.0/doctl-1.60.0-linux-amd64.tar.gz | tar -xzv
+          sudo mv ./doctl /usr/local/bin/doctl
+          doctl version
+          
+          # Authenticate with Digital Ocean using token
+          doctl auth init -t ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          
+          # Deploy MongoDB using Docker Compose
+          doctl apps create --spec mongodb/doctl-manifest.yml
