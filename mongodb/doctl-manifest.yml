@@ -3,5 +3,3 @@ name: mongodb
 services:
   - name: mongodb
     image: mongo:latest
-    environment:
-      MONGO_INITDB_DATABASE: "WBM"
