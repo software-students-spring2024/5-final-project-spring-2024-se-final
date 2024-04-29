@@ -16,17 +16,15 @@ jobs:
 
       # Build MongoDB Docker container
       - name: Build MongoDB
-        working-directory: $GITHUB_WORKSPACE
         run: docker-compose -f docker-compose.yml build mongodb
 
       # Push Docker image to Docker Hub
       - name: Push Docker Image
-        working-directory: $GITHUB_WORKSPACE
         run: docker-compose -f docker-compose.yml push mongodb
       
       # Deploy MongoDB to Digital Ocean
       - name: Deploy MongoDB to Digital Ocean
-        working-directory: $GITHUB_WORKSPACE/mongodb
+        working-directory: mongodb
         run: |
           # Install doctl
           curl -sL https://github.com/digitalocean/doctl/releases/download/v1.60.0/doctl-1.60.0-linux-amd64.tar.gz | tar -xzv
