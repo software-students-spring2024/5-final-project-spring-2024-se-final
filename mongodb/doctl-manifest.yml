@@ -3,5 +3,5 @@ name: mongodb
 services:
   - name: mongodb
     image:
-      source: mongo
+      name: mongo
       tag: latest
