@@ -22,12 +22,12 @@ jobs:
         
       # Install dependencies
       - name: Install dependencies
-        working-directory: $GITHUB_WORKSPACE/web-app  # Set the working directory to the web-app folder
+        working-directory: web-app  # Set the working directory to the web-app folder
         run: pip install -r requirements.txt
           
       # Run tests
       - name: Run tests
-        working-directory: $GITHUB_WORKSPACE/web-app
+        working-directory: web-app
         run: pytest --cov=web-app test-app.py
           
       # Login to Docker Hub
@@ -39,17 +39,15 @@ jobs:
           
       # Build Docker image
       - name: Build Docker Image
-        working-directory: $GITHUB_WORKSPACE
         run: docker-compose -f docker-compose.yml build webapp
         
       # Push Docker image to Docker Hub
       - name: Push Docker Image
-        working-directory: $GITHUB_WORKSPACE
         run: docker-compose -f docker-compose.yml push webapp
         
       # Deploy to Digital Ocean
       - name: Deploy Web App to Digital Ocean
-        working-directory: $GITHUB_WORKSPACE/web-app
+        working-directory: web-app
         run: |
           # Install doctl
           curl -sL https://github.com/digitalocean/doctl/releases/download/v1.60.0/doctl-1.60.0-linux-amd64.tar.gz | tar -xzv
