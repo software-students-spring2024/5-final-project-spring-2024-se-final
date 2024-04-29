@@ -16,7 +16,9 @@ jobs:
 
       # Navigate to MongoDB folder
       - name: Navigate to MongoDB folder
-        run: cd ../../mongodb
+        run: |
+          cd ../mongodb
+          pwd  # Print current working directory
 
       # Build MongoDB Docker container
       - name: Build MongoDB
