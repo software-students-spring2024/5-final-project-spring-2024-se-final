@@ -58,4 +58,4 @@ jobs:
           doctl auth init -t ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
           
           # Deploy web application using Docker Compose
-          doctl apps create --spec web-app/doctl-manifest.yml
+          doctl apps create --spec doctl-manifest.yml

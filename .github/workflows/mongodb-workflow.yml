@@ -34,5 +34,4 @@ jobs:
           # Authenticate with Digital Ocean using token
           doctl auth init -t ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
           
-          # Deploy MongoDB using Docker Compose
           doctl apps create --spec doctl-manifest.yml
