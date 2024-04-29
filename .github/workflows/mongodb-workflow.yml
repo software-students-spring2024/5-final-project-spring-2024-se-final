@@ -14,24 +14,19 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      # Navigate to web-app folder
-      - name: Navigate to web-app folder
-        run: |
-          cd $GITHUB_WORKSPACE  # Navigate to the root directory of the repository
-          cd mongodb  # Navigate to the mongodb folder
-          pwd  # Print current working directory
-
-
       # Build MongoDB Docker container
       - name: Build MongoDB
+        working-directory: $GITHUB_WORKSPACE
         run: docker-compose -f docker-compose.yml build mongodb
 
       # Push Docker image to Docker Hub
       - name: Push Docker Image
+        working-directory: $GITHUB_WORKSPACE
         run: docker-compose -f docker-compose.yml push mongodb
       
       # Deploy MongoDB to Digital Ocean
       - name: Deploy MongoDB to Digital Ocean
+        working-directory: $GITHUB_WORKSPACE/mongodb
         run: |
           # Install doctl
           curl -sL https://github.com/digitalocean/doctl/releases/download/v1.60.0/doctl-1.60.0-linux-amd64.tar.gz | tar -xzv
