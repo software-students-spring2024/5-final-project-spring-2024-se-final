@@ -22,7 +22,7 @@ jobs:
           
       # Navigate to web-app folder
       - name: Navigate to web-app folder
-        run: cd ../web-app
+        run: cd ../../web-app
         
       # Install dependencies
       - name: Install dependencies
