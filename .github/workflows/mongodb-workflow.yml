@@ -13,10 +13,18 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+      # Navigate to root folder
+      - name: Navigate to root folder
+        run: cd ..
         
       # Build MongoDB Docker container
       - name: Build MongoDB
-        run: docker-compose -f mongodb/docker-compose.yml build
+        run: docker-compose -f docker-compose.yml build mongodb
+
+      # Push Docker image to Docker Hub
+      - name: Push Docker Image
+        run: docker-compose -f docker-compose.yml push mongodb
       
       # Deploy MongoDB to Digital Ocean
       - name: Deploy MongoDB to Digital Ocean
@@ -30,4 +38,4 @@ jobs:
           doctl auth init -t ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
           
           # Deploy MongoDB using Docker Compose
-          doctl apps create --spec mongodb/doctl-manifest.yml
+          doctl apps create --spec doctl-manifest.yml
