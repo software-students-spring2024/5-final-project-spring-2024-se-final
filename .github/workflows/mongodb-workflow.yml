@@ -14,10 +14,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      # Navigate to root folder
-      - name: Navigate to root folder
-        run: cd ..
-        
+      # Navigate to MongoDB folder
+      - name: Navigate to MongoDB folder
+        run: cd ../mongodb
+
       # Build MongoDB Docker container
       - name: Build MongoDB
         run: docker-compose -f docker-compose.yml build mongodb
