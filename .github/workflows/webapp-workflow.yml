@@ -20,13 +20,25 @@ jobs:
         with:
           python-version: '3.9'
           
+      # Navigate to web-app folder
+      - name: Navigate to web-app folder
+        run: cd ..
+
+      - name: Navigate to web-app folder
+        run: cd web-app
+        
+      # Install dependencies
       - name: Install dependencies
         run: pip install -r requirements.txt
         
+      # Navigate back to root folder
+      - name: Navigate back to root folder
+        run: cd ..
+          
       # Run tests
       - name: Run tests
         run: |
-          pytest --cov=app test-app.py
+          pytest --cov=web-app test-app.py
           
       # Login to Docker Hub
       - name: Login to Docker Hub
@@ -37,11 +49,11 @@ jobs:
           
       # Build Docker image
       - name: Build Docker Image
-        run: docker-compose -f web-app/docker-compose.yml build
+        run: docker-compose -f docker-compose.yml build webapp
         
       # Push Docker image to Docker Hub
       - name: Push Docker Image
-        run: docker-compose -f web-app/docker-compose.yml push
+        run: docker-compose -f docker-compose.yml push webapp
         
       # Deploy to Digital Ocean
       - name: Deploy Web App to Digital Ocean
