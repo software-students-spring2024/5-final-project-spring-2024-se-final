@@ -2,6 +2,6 @@ name: mongodb
 
 services:
   - name: mongodb
-    image:
-      name: mongo
-      tag: latest
+    image: mongo
+    ports:
+        - 27017:27017

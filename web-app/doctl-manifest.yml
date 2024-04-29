@@ -5,8 +5,6 @@ static_sites:
       repo: ${{ secrets.GITHUB_REPOSITORY }}
       branch: main
       deploy_on_push: true
-      pull_request_previews: false
-      pull_request_previews_autoclose: true
     envs:
       - key: FLASK_APP
         value: "app.py"
