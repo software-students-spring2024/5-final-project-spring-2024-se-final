@@ -22,13 +22,15 @@ jobs:
         
       # Install dependencies
       - name: Install dependencies
-        working-directory: web-app  # Set the working directory to the web-app folder
+        working-directory: web-app
         run: pip install -r requirements.txt
           
       # Run tests
-      #- name: Run tests
-      #  working-directory: web-app
-      #  run: pytest --cov=web-app test-app.py
+      - name: Run tests
+        working-directory: web-app
+        run: |
+          coverage run -m pytest
+          coverage report -m
           
       # Login to Docker Hub
       - name: Login to Docker Hub
@@ -47,15 +49,7 @@ jobs:
         
       # Deploy to Digital Ocean
       - name: Deploy Web App to Digital Ocean
-        working-directory: web-app
         run: |
-          # Install doctl
-          curl -sL https://github.com/digitalocean/doctl/releases/download/v1.60.0/doctl-1.60.0-linux-amd64.tar.gz | tar -xzv
-          sudo mv ./doctl /usr/local/bin/doctl
-          doctl version
-          
-          # Authenticate with Digital Ocean using token
-          doctl auth init -t ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-          
-          # Deploy web application using Docker Compose
-          doctl apps create --spec doctl-manifest.yml
+          ssh root@${{ secrets.DROPLET_IP_ADDRESS }} "echo ${DROPLET_PASSWORD} | sudo -S bash -s" < deploy.sh
+        env:
+          DROPLET_PASSWORD: ${{ secrets.DROPLET_PASSWORD }}
