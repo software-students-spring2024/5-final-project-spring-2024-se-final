@@ -75,4 +75,6 @@ jobs:
             cd /var/www/webapp
             docker stop mongodb || true
             docker rm mongodb || true
+            docker stop webapp || true
+            docker rm webapp || true
             docker compose up --build
