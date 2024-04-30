@@ -14,13 +14,17 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      # Build MongoDB Docker container
-      - name: Build MongoDB
+      - name: Build Docker Image
         run: docker-compose -f docker-compose.yml build mongodb
 
-      # Push Docker image to Docker Hub
+      - name: Tag Docker Image
+        run: docker tag webapp zhongqianchen/wbm:mongodb
+        
       - name: Push Docker Image
         run: docker-compose -f docker-compose.yml push mongodb
+
+      - name: Push Docker Image to Docker Hub
+        run: docker push zhongqianchen/wbm:mongodb
       
       # Deploy MongoDB to Digital Ocean
       - name: Deploy MongoDB to Digital Ocean
