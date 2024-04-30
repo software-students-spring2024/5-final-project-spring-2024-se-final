@@ -77,4 +77,4 @@ jobs:
             docker rm mongodb || true
             docker stop webapp || true
             docker rm webapp || true
-            docker compose up --build
+            docker-compose up -d --build
