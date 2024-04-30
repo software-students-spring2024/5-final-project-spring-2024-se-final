@@ -73,4 +73,6 @@ jobs:
           port: 22
           script: |
             cd /var/www/webapp
+            docker stop mongodb || true
+            docker rm mongodb || true
             docker compose up --build
