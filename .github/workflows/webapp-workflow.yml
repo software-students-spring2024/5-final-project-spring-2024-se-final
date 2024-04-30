@@ -61,7 +61,7 @@ jobs:
           port: 22
           timeout: 120s
           source: "mongodb,web-app,docker-compose.yml"
-          target: ''
+          target: '/var/www/webapp'
           
       # SSH into Digital Ocean Droplet and Run Docker Compose
       - name: SSH into Digital Ocean Droplet and Run Docker Compose
@@ -72,4 +72,5 @@ jobs:
           password: ${{ secrets.DROPLET_PASSWORD }}
           port: 22
           script: |
+            cd /var/www/webapp
             docker compose up --build
