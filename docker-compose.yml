@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   webapp:
+    image: webapp
     build:
       context: ./web-app
       dockerfile: Dockerfile
@@ -16,6 +17,7 @@ services:
       MONGODB_URI: "mongodb://mongodb:27017/"
 
   mongodb:
+    image: mongodb
     build:
       context: ./mongodb
       dockerfile: Dockerfile
