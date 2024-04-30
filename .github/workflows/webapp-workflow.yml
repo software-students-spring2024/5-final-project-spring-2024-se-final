@@ -59,10 +59,8 @@ jobs:
           username: root
           password: ${{ secrets.DROPLET_PASSWORD }}
           port: 22
-          source: .
+          source: "mongodb,web-app,docker-compose.yml"
           target: ''
-        env:
-          EXCLUDE: .pytest_cache
           
       # SSH into Digital Ocean Droplet and Run Docker Compose
       - name: SSH into Digital Ocean Droplet and Run Docker Compose
