@@ -51,16 +51,13 @@ jobs:
       - name: Push Docker Image to Docker Hub
         run: docker push zhongqianchen/wbm:webapp
         
-      # SCP files to Digital Ocean Droplet
-      - name: SCP Files to Digital Ocean Droplet
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.DROPLET_IP_ADDRESS }}
-          username: root
-          password: ${{ secrets.DROPLET_PASSWORD }}
-          port: 22
-          source: .
-          target: ''
+      # Rsync Files to Digital Ocean Droplet
+      - name: Rsync Files to Digital Ocean Droplet
+        run: |
+          rsync -av --exclude='.pytest_cache' --delete . root@${{ secrets.DROPLET_IP_ADDRESS }}:
+        env:
+          DROPLET_IP_ADDRESS: ${{ secrets.DROPLET_IP_ADDRESS }}
+          DROPLET_PASSWORD: ${{ secrets.DROPLET_PASSWORD }}
 
       # Deploy to Digital Ocean
       - name: Deploy to Digital Ocean
