@@ -61,7 +61,8 @@ jobs:
           port: 22
           source: .
           target: ''
-          rm: '.pytest_cache'
+        env:
+          EXCLUDE: .pytest_cache
           
       # SSH into Digital Ocean Droplet and Run Docker Compose
       - name: SSH into Digital Ocean Droplet and Run Docker Compose
