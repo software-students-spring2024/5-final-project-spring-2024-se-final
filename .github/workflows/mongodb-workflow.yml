@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  build-and-deploy:
+  mongodb-deploy:
     runs-on: ubuntu-latest
     
     steps:
@@ -25,10 +25,3 @@ jobs:
       # Push Docker Image to Docker Hub
       - name: Push Docker Image to Docker Hub
         run: docker push zhongqianchen/wbm:mongodb
-      
-      # Deploy MongoDB to Digital Ocean
-      - name: Deploy MongoDB to Digital Ocean
-        run: |
-          ssh root@${{ secrets.DROPLET_IP_ADDRESS }} "echo ${DROPLET_PASSWORD} | sudo -S bash -s" < deploy.sh
-        env:
-          DROPLET_PASSWORD: ${{ secrets.DROPLET_PASSWORD }}
