@@ -7,6 +7,8 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 from bson import ObjectId
 
+# pylint: disable=expression-not-assigned
+
 load_dotenv()
 
 app = Flask(__name__, template_folder="templates")

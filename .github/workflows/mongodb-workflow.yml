@@ -24,14 +24,7 @@ jobs:
       
       # Deploy MongoDB to Digital Ocean
       - name: Deploy MongoDB to Digital Ocean
-        working-directory: mongodb
         run: |
-          # Install doctl
-          curl -sL https://github.com/digitalocean/doctl/releases/download/v1.60.0/doctl-1.60.0-linux-amd64.tar.gz | tar -xzv
-          sudo mv ./doctl /usr/local/bin/doctl
-          doctl version
-          
-          # Authenticate with Digital Ocean using token
-          doctl auth init -t ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-          
-          doctl apps create --spec doctl-manifest.yml
+          ssh root@${{ secrets.DROPLET_IP_ADDRESS }} "echo ${DROPLET_PASSWORD} | sudo -S bash -s" < deploy.sh
+        env:
+          DROPLET_PASSWORD: ${{ secrets.DROPLET_PASSWORD }}
