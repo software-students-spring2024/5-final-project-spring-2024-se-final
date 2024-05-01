@@ -28,12 +28,12 @@ This project is a world build manager web application working with the following
 
 ## Instructions
 
-You could directly access and use the public web page deployed on Digital Ocean right [here](http://142.93.12.105:5000).
+You could directly access and use the public web page deployed on Digital Ocean right [here](http://142.93.12.105:5001).
 
 Alternatively, you could run this web app on your local machine by following these steps:
 1. Fully intall Docker and Docker Desktop on your local machine.
 2. Open the directory's root folder and run the command `docker-compose up --build`.
-3. Access your [localhost page](http://localhost:5000) and the web app should be running there.
+3. Access your [localhost page](http://localhost:5001) and the web app should be running there.
 4. If you want to stop the program from running, simply press `Ctrl+C` at the terminal you were running `docker-compose up --build` from.
 
 There is no need for any starter data for this web app to run, so follow the above steps correctly and you should be able to use the web app as intended.
